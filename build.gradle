@@ -31,6 +31,12 @@ allprojects  {
 	repositories {
 		mavenCentral()
 	}
+	
+	configurations.all {
+		resolutionStrategy {
+			force 'org.lz4:lz4-java:1.8.1'
+		}
+	}
 }
 
 apply plugin: "com.github.johnrengelman.shadow"
