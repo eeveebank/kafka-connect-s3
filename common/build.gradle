@@ -4,6 +4,7 @@ dependencies {
 	api project(':api')
 	api group: 'com.amazonaws', name: 'aws-java-sdk-s3', version: '1.12.797'
 	api group: 'com.amazonaws', name: 'aws-java-sdk-sts', version: '1.12.797'
+	api group: 'org.slf4j', name: 'slf4j-api', version: '1.7.36'
 	implementation 'com.google.code.gson:gson:2.9.0'
 
 	testImplementation group: 'junit', name: 'junit', version: '4.13'
