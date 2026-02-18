@@ -1,9 +1,15 @@
 description = "Datadog Metrics Reporter for the Kafka Connect S3 Connector"
 
+configurations.all {
+	attributes {
+		attribute(Attribute.of("org.gradle.jvm.environment", String), "standard-jvm")
+	}
+}
+
 dependencies {
 	api project(':common')
 	implementation group: 'org.coursera', name: 'metrics-datadog', version: '1.1.6'
-	implementation 'com.google.guava:guava:30.0-jre'
+	implementation 'com.google.guava:guava:32.1.3-jre'
 
 	testImplementation group: 'junit', name: 'junit', version: '4.12'
 	testImplementation group: 'org.mockito', name: 'mockito-all', version: '1.9.5'
