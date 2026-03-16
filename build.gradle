@@ -31,6 +31,15 @@ allprojects  {
 	repositories {
 		mavenCentral()
 	}
+
+	configurations.all {
+		resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+			if (details.requested.group == 'org.lz4' && details.requested.name == 'lz4-java') {
+				details.useVersion '1.8.1'
+				details.because 'Fix SNYK-JAVA-ORGLZ4-14151788: Out-of-bounds Read in lz4-java < 1.8.1'
+			}
+		}
+	}
 }
 
 apply plugin: "com.github.johnrengelman.shadow"
@@ -39,8 +48,8 @@ apply plugin: "com.github.johnrengelman.shadow"
 shadowJar {
 	dependencies {
 		// provided in the connect classpath
-		exclude(dependency('org.apache.kafka:connect-api:2.4.1'))
-		exclude(dependency('org.apache.kafka:kafka-clients:2.4.1'))
+		exclude(dependency('org.apache.kafka:connect-api:.*'))
+		exclude(dependency('org.apache.kafka:kafka-clients:.*'))
 		exclude(dependency('net.jpountz.lz4:.*:.*'))
 		exclude(dependency('org.xerial.snappy:.*:.*'))
 		exclude(dependency('org.slf4j:.*:.*'))

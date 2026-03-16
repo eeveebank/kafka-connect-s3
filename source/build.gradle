@@ -2,6 +2,7 @@ description = "Kafka Connect Source that reads from S3"
 
 dependencies {
 	api project(':common')
+	implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.36'
 
 	testImplementation project(':sink')
 	testImplementation "org.junit.jupiter:junit-jupiter:5.8.2"
