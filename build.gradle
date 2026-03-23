@@ -31,6 +31,24 @@ allprojects  {
 	repositories {
 		mavenCentral()
 	}
+
+	configurations.all {
+		resolutionStrategy {
+			force 'com.fasterxml.jackson.core:jackson-core:2.18.6'
+			force 'com.fasterxml.jackson.core:jackson-databind:2.18.6'
+			force 'com.fasterxml.jackson.core:jackson-annotations:2.18.6'
+			force 'com.fasterxml.jackson.dataformat:jackson-dataformat-cbor:2.18.6'
+			force 'org.lz4:lz4-java:1.8.1'
+			force 'com.google.guava:guava:33.5.0-jre'
+		}
+		// Help Gradle 6.x select the JRE variant of Guava over the Android variant
+		attributes {
+			attribute(
+				Attribute.of('org.gradle.jvm.environment', String),
+				'standard-jvm'
+			)
+		}
+	}
 }
 
 apply plugin: "com.github.johnrengelman.shadow"
@@ -39,8 +57,8 @@ apply plugin: "com.github.johnrengelman.shadow"
 shadowJar {
 	dependencies {
 		// provided in the connect classpath
-		exclude(dependency('org.apache.kafka:connect-api:2.4.1'))
-		exclude(dependency('org.apache.kafka:kafka-clients:2.4.1'))
+		exclude(dependency('org.apache.kafka:connect-api:.*'))
+		exclude(dependency('org.apache.kafka:kafka-clients:.*'))
 		exclude(dependency('net.jpountz.lz4:.*:.*'))
 		exclude(dependency('org.xerial.snappy:.*:.*'))
 		exclude(dependency('org.slf4j:.*:.*'))
