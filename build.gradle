@@ -1,10 +1,16 @@
 buildscript {
 	repositories {
-		jcenter()
+		maven {
+			url = eevee_maven_url
+			credentials {
+				username = maven_user
+				password = maven_password
+			}
+		}
 	}
 	dependencies {
-		classpath 'com.github.jengelman.gradle.plugins:shadow:5.2.0'
-		classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.22.0"
+		classpath 'gradle.plugin.com.github.johnrengelman:shadow:7.1.2'
+		classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.30.0"
 	}
 }
 
@@ -29,7 +35,13 @@ allprojects  {
 	targetCompatibility = 11
 
 	repositories {
-		mavenCentral()
+		maven {
+			url = eevee_maven_url
+			credentials {
+				username = maven_user
+				password = maven_password
+			}
+		}
 	}
 }
 
@@ -62,13 +74,13 @@ dependencies {
 
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
-	classifier = 'javadoc'
+	archiveClassifier = 'javadoc'
 	from subprojects*.tasks.javadoc.destinationDir
 }
 
 task sourcesJar(type: Jar) {
 	from subprojects*.sourceSets.main.allSource
-	classifier = 'sources'
+	archiveClassifier = 'sources'
 }
 
 jar {
